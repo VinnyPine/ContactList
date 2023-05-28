@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { ClientContext } from "../../providers/ClientProvider";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterData, Registerschema } from "./validator";
+import { RegisterData, RegisterSchema } from "./validator";
 import { StyledRegister } from "./style";
 
 export const Register = () => {
@@ -12,7 +12,7 @@ export const Register = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<RegisterData>({
-    resolver: zodResolver(Registerschema),
+    resolver: zodResolver(RegisterSchema),
   });
 
   return (

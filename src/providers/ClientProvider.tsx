@@ -2,6 +2,7 @@ import { ReactNode, createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
 import { RegisterData } from "../pages/Register/validator";
+import { LoginData } from "../pages/Login/validator";
 
 interface ClientProps {
   children: ReactNode;
@@ -10,6 +11,7 @@ interface ClientProps {
 interface ClientValues {
   loading: boolean;
   registerClient: (data: RegisterData) => Promise<void>;
+  loginClient: (data: LoginData) => Promise<void>;
 }
 
 export const ClientContext = createContext({} as ClientValues);
@@ -32,8 +34,22 @@ export const ClientProvider = ({ children }: ClientProps) => {
     }
   };
 
+  const loginClient = async (data: LoginData) => {
+    try {
+      setLoading(true);
+      const response = await api.post("/login", data);
+      console.log(response.data);
+
+      navigate("/dashboard");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <ClientContext.Provider value={{ loading, registerClient }}>
+    <ClientContext.Provider value={{ loading, registerClient, loginClient }}>
       {children}
     </ClientContext.Provider>
   );
