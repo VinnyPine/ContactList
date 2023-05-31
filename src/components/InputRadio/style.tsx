@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledInputRadio = styled.div`
   display: flex;
   gap: 10px;
-  width: 50%;
 
   label {
     padding: 3px 10px;

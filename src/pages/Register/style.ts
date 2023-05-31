@@ -11,8 +11,7 @@ export const StyledRegister = styled.div`
     background-color: var(--color-gray200);
     padding: 20px;
     border-radius: 8px;
-    min-width: 300px;
-    width: 30%;
+    width: clamp(280px, 80%, 400px);
 
     margin-top: 40px;
     display: flex;
