@@ -7,10 +7,15 @@ export const StyledLogin = styled.div`
   align-items: center;
 
   form {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 20px;
+  }
+
+  a {
+    margin-top: 20px;
   }
 `;

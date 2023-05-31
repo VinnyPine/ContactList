@@ -6,6 +6,9 @@ import { LoginSchema } from "./validator";
 import { StyledLogin } from "./style";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginData } from "../../types";
+import { Header } from "../../components/Header";
+import { Button } from "../../components/Button";
+import { Input } from "../../components/Input";
 
 export const Login = () => {
   const { loginClient, isLoadingClient, infoMessage } =
@@ -28,18 +31,28 @@ export const Login = () => {
 
   return (
     <StyledLogin>
-      <h2>Login</h2>
+      <Header text="Login" />
 
       <form onSubmit={handleSubmit(loginClient)}>
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" {...register("email")} />
-        {errors?.email && <p>{errors.email.message}</p>}
+        <Input
+          type="email"
+          text="Email:"
+          name="email"
+          placeholder="example@mail.com"
+          register={register}
+          errorMessage={errors?.email?.message}
+        />
 
-        <label htmlFor="password">Senha</label>
-        <input type="password" id="password" {...register("password")} />
-        {errors?.password && <p>{errors.password.message}</p>}
+        <Input
+          type="password"
+          text="Senha:"
+          name="password"
+          placeholder="**********"
+          register={register}
+          errorMessage={errors?.password?.message}
+        />
 
-        <button type="submit">Acessar</button>
+        <Button type="submit">Acessar</Button>
         {isLoadingClient && <span>Carregando...</span>}
       </form>
 
