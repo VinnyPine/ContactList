@@ -3,9 +3,10 @@ import { UseFormRegister } from "react-hook-form";
 
 interface InputRadioProps {
   register: UseFormRegister<any>;
+  defaultCheck?: boolean;
 }
 
-export const InputRadio = ({ register }: InputRadioProps) => {
+export const InputRadio = ({ register, defaultCheck }: InputRadioProps) => {
   return (
     <StyledInputRadio>
       <input
@@ -13,7 +14,7 @@ export const InputRadio = ({ register }: InputRadioProps) => {
         id="radioUser"
         {...register("isAdmin")}
         value="false"
-        defaultChecked
+        defaultChecked={defaultCheck ? undefined : true}
       />
       <label htmlFor="radioUser">user</label>
 
@@ -22,6 +23,7 @@ export const InputRadio = ({ register }: InputRadioProps) => {
         id="radioAdmin"
         {...register("isAdmin")}
         value="true"
+        defaultChecked={defaultCheck}
       />
       <label htmlFor="radioAdmin">admin</label>
     </StyledInputRadio>

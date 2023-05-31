@@ -19,6 +19,8 @@ export const GlobalStyle = createGlobalStyle`
     --color-gray500: #505050;
     --color-white: #eeeeee;
     --color-black: #0f0f0f;
+    --color-success: #22b31d;
+    --color-error: #af2c2c;
 
     --font-size1: 0.625rem; 
     --font-size2: 0.75rem; 
@@ -35,5 +37,9 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: var(--color-gray100);
     font-family: "Poppins", sans-serif;
+  }
+
+  button {
+    cursor: pointer;
   }
 `;

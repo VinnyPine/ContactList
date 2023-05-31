@@ -1,17 +1,25 @@
-import { useContext, useEffect } from "react";
+import { ReactNode, useContext, useEffect } from "react";
 import { ContactContext } from "../../providers";
 import { getDate } from "../../utils";
 import { Container } from "../Container";
 import { StyledContact, StyledSectionContacts } from "./style";
 import { Button } from "../Button";
 
-export const Contacts = () => {
+interface ContactsProps {
+  setFormModal: React.Dispatch<React.SetStateAction<ReactNode>>;
+}
+
+export const Contacts = ({ setFormModal }: ContactsProps) => {
   const { isLoadingContact, contacts, listContact } =
     useContext(ContactContext);
 
   useEffect(() => {
     listContact();
   }, []);
+
+  const handlemodal = (form: ReactNode) => {
+    setFormModal(form);
+  };
 
   return (
     <StyledSectionContacts>

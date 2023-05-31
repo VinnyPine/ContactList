@@ -56,7 +56,13 @@ export const Login = () => {
         {isLoadingClient && <span>Carregando...</span>}
       </form>
 
-      {infoMessage && <div className="info-message">{infoMessage}</div>}
+      {infoMessage && (
+        <div
+          className={`info-message ${infoMessage.includes("erro") && "error"}`}
+        >
+          {infoMessage}
+        </div>
+      )}
 
       <Link to={"/register"}>Cadastrar</Link>
     </StyledLogin>

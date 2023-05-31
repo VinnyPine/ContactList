@@ -3,7 +3,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { ClientContext } from "../../providers";
 
 export const ProtectedRoutes = () => {
-  const { isLoadingClient, verifyToken, user } = useContext(ClientContext);
+  const { isLoadingClient, verifyToken, hasUser } = useContext(ClientContext);
 
   useEffect(() => {
     verifyToken();
@@ -13,5 +13,5 @@ export const ProtectedRoutes = () => {
     return <div>Carregando...</div>;
   }
 
-  return user ? <Outlet /> : <Navigate to={"/"} />;
+  return hasUser ? <Outlet /> : <Navigate to={"/"} />;
 };

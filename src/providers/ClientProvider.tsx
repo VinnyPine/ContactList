@@ -14,8 +14,10 @@ export const ClientContext = createContext({} as ClientValues);
 export const ClientProvider = ({ children }: ClientProps) => {
   const navigate = useNavigate();
   const [isLoadingClient, setIsLoadingClient] = useState(false);
-  const [user, setUser] = useState<Client | null>(null);
+  const [user, setUser] = useState<Client>({} as Client);
   const [infoMessage, setInfoMessage] = useState<string>("");
+
+  const hasUser = user.id ? true : false;
 
   useEffect(() => {
     setInfoMessage("");
@@ -72,6 +74,33 @@ export const ClientProvider = ({ children }: ClientProps) => {
       localStorage.setItem("@contacts-list:token", token);
 
       navigate("/dashboard");
+    } catch (error: unknown) {
+      console.error(error);
+      setInfoMessage("Ocorreu um erro no servidor, tente novamente.");
+    } finally {
+      setIsLoadingClient(false);
+    }
+  };
+
+  const editClient = async (data: RegisterData, userId: string) => {
+    const token = localStorage.getItem("@contacts-list:token");
+
+    if (!token) {
+      navigate("/");
+      return;
+    }
+
+    try {
+      setIsLoadingClient(true);
+      await api.patch(`/clients/${userId}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setInfoMessage("Sucesso ao criar conta!");
+
+      navigate("/");
     } catch (error) {
       console.error(error);
     } finally {
@@ -84,10 +113,12 @@ export const ClientProvider = ({ children }: ClientProps) => {
       value={{
         isLoadingClient,
         user,
+        hasUser,
         infoMessage,
         registerClient,
         loginClient,
         verifyToken,
+        editClient,
       }}
     >
       {children}

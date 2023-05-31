@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const StyledInput = styled.div`
-  /* padding: 0 7px; */
   position: relative;
   display: flex;
   justify-content: center;
@@ -10,6 +9,7 @@ export const StyledInput = styled.div`
   gap: 10px;
   height: 60px;
   width: 100%;
+  margin-bottom: 20px;
 
   label {
     font-family: inherit;
@@ -29,7 +29,7 @@ export const StyledInput = styled.div`
 
   p {
     position: absolute;
-    bottom: 0px;
+    bottom: -30px;
     left: 5px;
 
     color: #9c3d3d;

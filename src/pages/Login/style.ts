@@ -22,7 +22,11 @@ export const StyledLogin = styled.div`
 
   .info-message {
     margin-top: 15px;
-    color: var(--color-primary300);
+    color: var(--color-success);
+  }
+
+  .info-message.error {
+    color: var(--color-error);
   }
 
   a {

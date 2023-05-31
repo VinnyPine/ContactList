@@ -8,9 +8,13 @@ export const StyledSectionProfile = styled.section`
   display: flex;
   align-items: center;
 
-  .title-profile {
+  > div > div:first-child {
     background-color: var(--color-gray300);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 0 20px;
+    height: 40px;
   }
 `;
 
@@ -18,7 +22,8 @@ export const StyledProfile = styled.div`
   background-color: var(--color-gray200);
 
   display: flex;
-  gap: 20%;
+  gap: clamp(10px, 20%, 100px);
   justify-content: center;
   align-items: center;
+  padding: 0 20px;
 `;
