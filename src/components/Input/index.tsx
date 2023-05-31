@@ -1,7 +1,7 @@
 import { StyledInput } from "./style";
 import { UseFormRegister } from "react-hook-form";
 
-interface ButtonProps {
+interface InputProps {
   type?: React.HTMLInputTypeAttribute | undefined;
   name: string;
   errorMessage?: string;
@@ -17,7 +17,7 @@ export const Input = ({
   text,
   register,
   placeholder,
-}: ButtonProps) => {
+}: InputProps) => {
   return (
     <StyledInput>
       <label htmlFor={name}>{text}</label>

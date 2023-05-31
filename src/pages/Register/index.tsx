@@ -6,6 +6,10 @@ import { RegisterSchema } from "./validator";
 import { StyledRegister } from "./style";
 import { Link } from "react-router-dom";
 import { RegisterData } from "../../types";
+import { Input } from "../../components/Input";
+import { InputRadio } from "../../components/InputRadio";
+import { Button } from "../../components/Button";
+import { Header } from "../../components/Header";
 
 export const Register = () => {
   const { registerClient, isLoadingClient } = useContext(ClientContext);
@@ -19,51 +23,55 @@ export const Register = () => {
 
   return (
     <StyledRegister>
-      <h2>Register</h2>
+      <Header text="Register" />
 
       <form onSubmit={handleSubmit(registerClient)}>
-        <label htmlFor="firstName">Nome</label>
-        <input type="text" id="firstName" {...register("firstName")} />
-        {errors?.firstName && <p>{errors.firstName.message}</p>}
-
-        <label htmlFor="lastName">Sobrenome</label>
-        <input type="text" id="lastName" {...register("lastName")} />
-        {errors?.lastName && <p>{errors.lastName.message}</p>}
-
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" {...register("email")} />
-        {errors?.email && <p>{errors.email.message}</p>}
-
-        <label htmlFor="phone">Telefone</label>
-        <input type="text" id="phone" {...register("phone")} />
-        {errors?.phone && <p>{errors.phone.message}</p>}
-
-        <label htmlFor="password">Senha</label>
-        <input type="password" id="password" {...register("password")} />
-        {errors?.password && <p>{errors.password.message}</p>}
-
-        <label htmlFor="confirmPassword">Confirmar senha</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          {...register("confirmPassword")}
+        <Input
+          type="text"
+          name="firstName"
+          register={register}
+          text="Nome"
+          errorMessage={errors?.firstName?.message}
         />
-        {errors?.confirmPassword && <p>{errors.confirmPassword.message}</p>}
+        <Input
+          type="text"
+          name="lastName"
+          register={register}
+          text="Sobrenome"
+          errorMessage={errors?.lastName?.message}
+        />
+        <Input
+          type="text"
+          name="email"
+          register={register}
+          text="Email"
+          errorMessage={errors?.email?.message}
+        />
+        <Input
+          type="text"
+          name="phone"
+          register={register}
+          text="Telefone"
+          errorMessage={errors?.phone?.message}
+        />
+        <Input
+          type="password"
+          name="password"
+          register={register}
+          text="Senha"
+          errorMessage={errors?.password?.message}
+        />
+        <Input
+          type="password"
+          name="confirmPassword"
+          register={register}
+          text="Confirmar senha"
+          errorMessage={errors?.confirmPassword?.message}
+        />
 
-        <div className="radioCase">
-          <input
-            type="radio"
-            {...register("isAdmin")}
-            value="false"
-            defaultChecked
-          />
-          <label htmlFor="confirmPassword">user</label>
+        <InputRadio register={register} />
 
-          <input type="radio" {...register("isAdmin")} value="true" />
-          <label htmlFor="confirmPassword">admin</label>
-        </div>
-
-        <button type="submit">Register</button>
+        <Button type="submit">Register</Button>
         {isLoadingClient && <span>Carregando...</span>}
       </form>
 
