@@ -1,12 +1,14 @@
 import { useContext } from "react";
-import { ClientContext } from "../../providers/ClientProvider";
+import { ClientContext } from "../../providers";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterData, RegisterSchema } from "./validator";
+import { RegisterSchema } from "./validator";
 import { StyledRegister } from "./style";
+import { Link } from "react-router-dom";
+import { RegisterData } from "../../types";
 
 export const Register = () => {
-  const { registerClient, loading } = useContext(ClientContext);
+  const { registerClient, isLoadingClient } = useContext(ClientContext);
   const {
     register,
     handleSubmit,
@@ -62,8 +64,10 @@ export const Register = () => {
         </div>
 
         <button type="submit">Register</button>
-        {loading && <span>Loading...</span>}
+        {isLoadingClient && <span>Carregando...</span>}
       </form>
+
+      <Link to={"/"}>Login</Link>
     </StyledRegister>
   );
 };

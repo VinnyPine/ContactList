@@ -1,12 +1,16 @@
-import { useContext } from "react";
-import { ClientContext } from "../../providers/ClientProvider";
+import { useContext, useEffect } from "react";
+import { ClientContext } from "../../providers";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginData, LoginSchema } from "./validator";
+import { LoginSchema } from "./validator";
 import { StyledLogin } from "./style";
+import { Link, useNavigate } from "react-router-dom";
+import { LoginData } from "../../types";
 
 export const Login = () => {
-  const { loginClient, loading } = useContext(ClientContext);
+  const { loginClient, isLoadingClient, infoMessage } =
+    useContext(ClientContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -14,6 +18,13 @@ export const Login = () => {
   } = useForm<LoginData>({
     resolver: zodResolver(LoginSchema),
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("@contacts-list:token");
+    if (token) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   return (
     <StyledLogin>
@@ -29,8 +40,12 @@ export const Login = () => {
         {errors?.password && <p>{errors.password.message}</p>}
 
         <button type="submit">Acessar</button>
-        {loading && <span>Loading...</span>}
+        {isLoadingClient && <span>Carregando...</span>}
       </form>
+
+      {infoMessage && <div>{infoMessage}</div>}
+
+      <Link to={"/register"}>Cadastrar</Link>
     </StyledLogin>
   );
 };

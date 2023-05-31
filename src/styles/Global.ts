@@ -33,6 +33,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    background-color: var(--color-gray100);
     font-family: "Poppins", sans-serif;
   }
 `;

@@ -1,55 +1,94 @@
-import { ReactNode, createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
-import { RegisterData } from "../pages/Register/validator";
-import { LoginData } from "../pages/Login/validator";
-
-interface ClientProps {
-  children: ReactNode;
-}
-
-interface ClientValues {
-  loading: boolean;
-  registerClient: (data: RegisterData) => Promise<void>;
-  loginClient: (data: LoginData) => Promise<void>;
-}
+import {
+  Client,
+  ClientProps,
+  ClientValues,
+  LoginData,
+  RegisterData,
+} from "../types";
 
 export const ClientContext = createContext({} as ClientValues);
 
 export const ClientProvider = ({ children }: ClientProps) => {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [isLoadingClient, setIsLoadingClient] = useState(false);
+  const [user, setUser] = useState<Client | null>(null);
+  const [infoMessage, setInfoMessage] = useState<string>("");
+
+  useEffect(() => {
+    setInfoMessage("");
+  }, []);
+
+  const verifyToken = async () => {
+    const token = localStorage.getItem("@contacts-list:token");
+
+    if (!token) {
+      navigate("/");
+      return;
+    }
+
+    try {
+      setIsLoadingClient(true);
+      const response = await api.get("/token", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setUser(response.data);
+    } catch (error) {
+      console.error(error);
+      localStorage.clear();
+    } finally {
+      setIsLoadingClient(false);
+    }
+  };
 
   const registerClient = async (data: RegisterData) => {
     try {
-      setLoading(true);
-      const response = await api.post("/clients", data);
-      console.log(response.data);
+      setIsLoadingClient(true);
+      await api.post("/clients", data);
+
+      setInfoMessage("Sucesso ao criar conta!");
 
       navigate("/");
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setIsLoadingClient(false);
     }
   };
 
   const loginClient = async (data: LoginData) => {
     try {
-      setLoading(true);
+      setIsLoadingClient(true);
       const response = await api.post("/login", data);
-      console.log(response.data);
+
+      const token: string = response.data?.token;
+
+      localStorage.setItem("@contacts-list:token", token);
 
       navigate("/dashboard");
     } catch (error) {
       console.error(error);
     } finally {
-      setLoading(false);
+      setIsLoadingClient(false);
     }
   };
 
   return (
-    <ClientContext.Provider value={{ loading, registerClient, loginClient }}>
+    <ClientContext.Provider
+      value={{
+        isLoadingClient,
+        user,
+        infoMessage,
+        registerClient,
+        loginClient,
+        verifyToken,
+      }}
+    >
       {children}
     </ClientContext.Provider>
   );
