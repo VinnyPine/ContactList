@@ -10,12 +10,12 @@ export const Profile = () => {
   return (
     <StyledSectionProfile>
       <Container>
-        {isLoadingClient && <div>Carregando...</div>}
+        <h2 className="title-profile">Perfil</h2>
         {user && (
           <StyledProfile id={user.id}>
             <div>
               <h2 className="title-user">
-                {user.firstName} {user.lastName}
+                Nome: {user.firstName} {user.lastName}
               </h2>
               <p className="text-user">Email: {user.email}</p>
             </div>

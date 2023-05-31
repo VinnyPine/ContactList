@@ -21,13 +21,18 @@ export const StyledContact = styled.div`
   gap: 15px;
   justify-content: space-between;
   align-items: center;
-  height: 40px;
+  min-height: 40px;
   padding: 0 30px;
+  border: 1px solid var(--color-gray400);
 
   > div {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 20px;
+  }
+
+  .info-card {
+    flex-wrap: wrap;
   }
 `;

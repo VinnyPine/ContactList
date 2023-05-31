@@ -7,6 +7,11 @@ export const StyledSectionProfile = styled.section`
   height: 200px;
   display: flex;
   align-items: center;
+
+  .title-profile {
+    background-color: var(--color-gray300);
+    padding: 0 20px;
+  }
 `;
 
 export const StyledProfile = styled.div`
