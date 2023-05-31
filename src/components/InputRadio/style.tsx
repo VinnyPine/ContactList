@@ -7,6 +7,9 @@ export const StyledInputRadio = styled.div`
   label {
     padding: 3px 10px;
     border-radius: 8px;
+    border: 1px solid var(--color-gray500);
+    background-color: var(--color-gray300);
+    font-weight: 500;
   }
 
   input {
