@@ -11,7 +11,9 @@ export const EditProfileSchema = z
     phone: z
       .string()
       .nonempty("Telefone é obrigatório")
-      .max(11, "Telefone só pode ter 11 digitos"),
+      .min(11, "Telefone deve ter 11 digitos")
+      .max(11, "Telefone deve ter 11 digitos")
+      .regex(/^(\d{2})9(\d{8})$/, "Telefone inválido"),
     password: z.string(),
     confirmPassword: z.string(),
     isAdmin: z.string().transform((value) => (value === "true" ? true : false)),

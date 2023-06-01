@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { api } from "../services/api";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,6 +19,11 @@ export const ContactProvider = ({ children }: ContactProps) => {
   const [selectedContact, setSelectedContact] = useState<Contact>(
     {} as Contact
   );
+  const [infoMessage, setInfoMessage] = useState("");
+
+  useEffect(() => {
+    setInfoMessage("");
+  }, []);
 
   const createContact = async (data: AddContactData) => {
     const token = localStorage.getItem("@contacts-list:token");
@@ -37,8 +42,15 @@ export const ContactProvider = ({ children }: ContactProps) => {
       });
 
       listContact();
-    } catch (error) {
+    } catch (error: any) {
       console.error(error);
+      if (error?.response?.status === 409) {
+        setInfoMessage(
+          "email e/ou telefone já existe na sua lista de contatos"
+        );
+      } else {
+        setInfoMessage("Ocorreu um erro no servidor, tente novamente.");
+      }
     } finally {
       setisLoadingContact(false);
     }
@@ -92,6 +104,30 @@ export const ContactProvider = ({ children }: ContactProps) => {
     }
   };
 
+  const removeContact = async (contactId: string) => {
+    const token = localStorage.getItem("@contacts-list:token");
+
+    if (!token) {
+      navigate("/");
+      return;
+    }
+
+    try {
+      setisLoadingContact(true);
+      await api.delete(`/contacts/${contactId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      listContact();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setisLoadingContact(false);
+    }
+  };
+
   return (
     <ContactContext.Provider
       value={{
@@ -99,9 +135,11 @@ export const ContactProvider = ({ children }: ContactProps) => {
         contacts,
         selectedContact,
         setSelectedContact,
+        infoMessage,
         createContact,
         listContact,
         editContact,
+        removeContact,
       }}
     >
       {children}

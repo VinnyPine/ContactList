@@ -5,12 +5,12 @@ import { Button } from "../Button";
 
 interface ModalProps {
   form?: ReactNode;
-  setFormModal: React.Dispatch<React.SetStateAction<ReactNode>>;
+  handleModal: (form: ReactNode) => void;
 }
 
-export const Modal = ({ form, setFormModal }: ModalProps) => {
+export const Modal = ({ form, handleModal }: ModalProps) => {
   const closeModal = () => {
-    setFormModal(null);
+    handleModal(null);
   };
 
   return form

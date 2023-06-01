@@ -18,6 +18,6 @@ export const StyledInputRadio = styled.div`
 
   input:checked + label {
     background-color: var(--color-primary100);
-    font-weight: 600;
+    color: var(--color-white);
   }
 `;

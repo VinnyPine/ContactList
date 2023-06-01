@@ -11,4 +11,9 @@ export const StyledEditProfileForm = styled.form`
   justify-content: center;
   align-items: center;
   gap: 10px;
+
+  .buttons-case {
+    display: flex;
+    gap: 20px;
+  }
 `;

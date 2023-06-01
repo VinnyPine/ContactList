@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { ReactNode, useContext, useState } from "react";
 import { ClientContext } from "../../providers";
 import { useForm } from "react-hook-form";
 import { EditProfileData } from "../../types";
@@ -9,8 +9,14 @@ import { InputRadio } from "../InputRadio";
 import { Button } from "../Button";
 import { StyledEditProfileForm } from "./style";
 
-export const EditProfileForm = () => {
-  const { isLoadingClient, user, editClient } = useContext(ClientContext);
+interface EditProfileProps {
+  handleModal: (form: ReactNode) => void;
+}
+
+export const EditProfileForm = ({ handleModal }: EditProfileProps) => {
+  const { isLoadingClient, user, editClient, removeClient } =
+    useContext(ClientContext);
+  const [exclude, setExclude] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -47,6 +53,15 @@ export const EditProfileForm = () => {
     }
 
     editClient(validatedData, user.id);
+  };
+
+  const toggleExclude = () => {
+    setExclude((prev) => !prev);
+  };
+
+  const deleteUser = async () => {
+    await removeClient(user.id);
+    handleModal(null);
   };
 
   return (
@@ -96,7 +111,25 @@ export const EditProfileForm = () => {
 
       <InputRadio register={register} defaultCheck={user.isAdmin} />
 
-      <Button type="submit">Salvar</Button>
+      <div className="buttons-case">
+        {exclude ? (
+          <>
+            <Button type="submit" variant="error" onClick={deleteUser}>
+              Sim
+            </Button>
+            <Button type="button" onClick={toggleExclude}>
+              cancelar
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button type="submit">Salvar</Button>
+            <Button type="button" variant="error" onClick={toggleExclude}>
+              Apagar perfil
+            </Button>
+          </>
+        )}
+      </div>
       {isLoadingClient && <span>Carregando...</span>}
     </StyledEditProfileForm>
   );

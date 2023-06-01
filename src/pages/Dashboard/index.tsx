@@ -13,7 +13,7 @@ export const Dashboard = () => {
     setFormModal(null);
   }, []);
 
-  const handleModal = (form: ReactNode) => {
+  const handleModal = (form: ReactNode | null) => {
     setFormModal(form);
   };
 
@@ -22,7 +22,7 @@ export const Dashboard = () => {
       <Header text="Dashboard" hasUser={hasUser} />
       <Profile handleModal={handleModal} />
       <Contacts handleModal={handleModal} />
-      <Modal form={formModal} setFormModal={setFormModal} />
+      <Modal form={formModal} handleModal={handleModal} />
     </StyledDashboard>
   );
 };

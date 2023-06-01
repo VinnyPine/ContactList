@@ -8,7 +8,7 @@ import { AddContactForm } from "../AddContactForm";
 import { EditContactForm } from "../EditContactForm";
 
 interface ContactsProps {
-  handleModal: (form: ReactNode) => void;
+  handleModal: (form: ReactNode | null) => void;
 }
 
 export const Contacts = ({ handleModal }: ContactsProps) => {
@@ -58,7 +58,9 @@ export const Contacts = ({ handleModal }: ContactsProps) => {
                   <Button
                     onClick={() => {
                       setSelectedContact(contact);
-                      handleModal(<EditContactForm />);
+                      handleModal(
+                        <EditContactForm handleModal={handleModal} />
+                      );
                     }}
                   >
                     Editar
