@@ -51,7 +51,6 @@ export const ClientProvider = ({ children }: ClientProps) => {
   const registerClient = async (data: RegisterData) => {
     try {
       setIsLoadingClient(true);
-      console.log(data);
       await api.post("/clients", data);
 
       setInfoMessage("Sucesso ao criar conta!");

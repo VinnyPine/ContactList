@@ -8,7 +8,10 @@ export const RegisterSchema = z
       .string()
       .email("Deve ser um e-mail")
       .nonempty("Email é obrigatório"),
-    phone: z.string().nonempty("Telefone é obrigatório"),
+    phone: z
+      .string()
+      .nonempty("Telefone é obrigatório")
+      .max(11, "Telefone só pode ter 11 digitos"),
     password: z.string().min(8).nonempty("Senha é obrigatória"),
     confirmPassword: z.string().nonempty("Confirmação de senha é obrigatória"),
     isAdmin: z.string().transform((value) => (value === "true" ? true : false)),

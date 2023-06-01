@@ -7,22 +7,23 @@ import { Button } from "../Button";
 import { EditProfileForm } from "../EditProfileForm";
 
 interface ProfileProps {
-  setFormModal: React.Dispatch<React.SetStateAction<ReactNode>>;
+  handleModal: (form: ReactNode) => void;
 }
 
-export const Profile = ({ setFormModal }: ProfileProps) => {
+export const Profile = ({ handleModal }: ProfileProps) => {
   const { user } = useContext(ClientContext);
-
-  const handleModal = () => {
-    setFormModal(<EditProfileForm />);
-  };
 
   return (
     <StyledSectionProfile>
       <Container>
         <div>
           <h2 className="title-profile">Perfil</h2>
-          <Button type="button" onClick={handleModal}>
+          <Button
+            type="button"
+            onClick={() => {
+              handleModal(<EditProfileForm />);
+            }}
+          >
             Editar
           </Button>
         </div>

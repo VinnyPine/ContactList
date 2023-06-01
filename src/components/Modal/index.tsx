@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef } from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { StyledModal } from "./style";
 import { Button } from "../Button";

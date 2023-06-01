@@ -4,22 +4,22 @@ import { getDate } from "../../utils";
 import { Container } from "../Container";
 import { StyledContact, StyledSectionContacts } from "./style";
 import { Button } from "../Button";
+import { AddContactForm } from "../AddContactForm";
+import { EditContactForm } from "../EditContactForm";
 
 interface ContactsProps {
-  setFormModal: React.Dispatch<React.SetStateAction<ReactNode>>;
+  handleModal: (form: ReactNode) => void;
 }
 
-export const Contacts = ({ setFormModal }: ContactsProps) => {
+export const Contacts = ({ handleModal }: ContactsProps) => {
   const { isLoadingContact, contacts, listContact } =
     useContext(ContactContext);
+
+  const { setSelectedContact } = useContext(ContactContext);
 
   useEffect(() => {
     listContact();
   }, []);
-
-  const handlemodal = (form: ReactNode) => {
-    setFormModal(form);
-  };
 
   return (
     <StyledSectionContacts>
@@ -28,12 +28,22 @@ export const Contacts = ({ setFormModal }: ContactsProps) => {
           <h2 className="title-contact">
             Contatos {isLoadingContact && " - Carregando..."}
           </h2>
-          <Button>Adicionar contato</Button>
+          <Button
+            onClick={() => {
+              handleModal(<AddContactForm />);
+            }}
+          >
+            Adicionar contato
+          </Button>
         </div>
         {contacts.length > 0 &&
           contacts.map((contact, index) => {
             return (
-              <StyledContact key={index} id={contact.id}>
+              <StyledContact
+                key={index}
+                id={contact.id}
+                className="contact-card"
+              >
                 <div className="info-card">
                   <h3 className="title-contact-card">
                     Nome: {contact.firstName} {contact.lastName}
@@ -45,7 +55,14 @@ export const Contacts = ({ setFormModal }: ContactsProps) => {
                   </p>
                 </div>
                 <div className="buttons-case">
-                  <Button>Editar</Button>
+                  <Button
+                    onClick={() => {
+                      setSelectedContact(contact);
+                      handleModal(<EditContactForm />);
+                    }}
+                  >
+                    Editar
+                  </Button>
                 </div>
               </StyledContact>
             );

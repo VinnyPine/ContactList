@@ -12,11 +12,16 @@ export const Dashboard = () => {
   useEffect(() => {
     setFormModal(null);
   }, []);
+
+  const handleModal = (form: ReactNode) => {
+    setFormModal(form);
+  };
+
   return (
     <StyledDashboard>
       <Header text="Dashboard" hasUser={hasUser} />
-      <Profile setFormModal={setFormModal} />
-      <Contacts setFormModal={setFormModal} />
+      <Profile handleModal={handleModal} />
+      <Contacts handleModal={handleModal} />
       <Modal form={formModal} setFormModal={setFormModal} />
     </StyledDashboard>
   );

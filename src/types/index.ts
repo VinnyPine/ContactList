@@ -3,6 +3,8 @@ import { RegisterSchema } from "../pages/Register/validator";
 import { LoginSchema } from "../pages/Login/validator";
 import { z } from "zod";
 import { EditProfileSchema } from "../components/EditProfileForm/validator";
+import { AddContactSchema } from "../components/AddContactForm/validator";
+import { EditContactSchema } from "../components/EditContactForm/validator";
 
 export interface ClientProps {
   children: ReactNode;
@@ -36,7 +38,11 @@ export interface ContactProps {
 export interface ContactValues {
   isLoadingContact: boolean;
   contacts: Contact[];
+  selectedContact: Contact;
+  setSelectedContact: React.Dispatch<React.SetStateAction<Contact>>;
+  createContact: (data: AddContactData) => Promise<void>;
   listContact: () => Promise<void>;
+  editContact: (data: EditContactData, contactId: string) => Promise<void>;
 }
 
 export interface Contact {
@@ -51,3 +57,5 @@ export interface Contact {
 export type RegisterData = z.infer<typeof RegisterSchema>;
 export type LoginData = z.infer<typeof LoginSchema>;
 export type EditProfileData = z.infer<typeof EditProfileSchema>;
+export type AddContactData = z.infer<typeof AddContactSchema>;
+export type EditContactData = z.infer<typeof EditContactSchema>;
