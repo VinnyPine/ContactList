@@ -6,6 +6,7 @@ import { StyledContact, StyledSectionContacts } from "./style";
 import { Button } from "../Button";
 import { AddContactForm } from "../AddContactForm";
 import { EditContactForm } from "../EditContactForm";
+import { ButtonGeneratePdf } from "../ButtonGeneratePdf";
 
 interface ContactsProps {
   handleModal: (form: ReactNode | null) => void;
@@ -14,7 +15,6 @@ interface ContactsProps {
 export const Contacts = ({ handleModal }: ContactsProps) => {
   const { isLoadingContact, contacts, listContact } =
     useContext(ContactContext);
-
   const { setSelectedContact } = useContext(ContactContext);
 
   useEffect(() => {
@@ -28,6 +28,7 @@ export const Contacts = ({ handleModal }: ContactsProps) => {
           <h2 className="title-contact">
             Contatos {isLoadingContact && " - Carregando..."}
           </h2>
+          <ButtonGeneratePdf />
           <Button
             onClick={() => {
               handleModal(<AddContactForm />);
@@ -48,8 +49,8 @@ export const Contacts = ({ handleModal }: ContactsProps) => {
                   <h3 className="title-contact-card">
                     Nome: {contact.firstName} {contact.lastName}
                   </h3>
-                  <p className="text-contact-card">email: {contact.email}</p>
-                  <p className="text-contact-card">phone: {contact.phone}</p>
+                  <p className="text-contact-card">Email: {contact.email}</p>
+                  <p className="text-contact-card">Telefone: {contact.phone}</p>
                   <p className="text-contact-card">
                     Criado em: {getDate(contact.createdAt)}
                   </p>
