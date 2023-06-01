@@ -7,7 +7,7 @@ import { Button } from "../Button";
 import { EditProfileForm } from "../EditProfileForm";
 
 interface ProfileProps {
-  handleModal: (form: ReactNode) => void;
+  handleModal: (form: ReactNode | null) => void;
 }
 
 export const Profile = ({ handleModal }: ProfileProps) => {
@@ -21,7 +21,7 @@ export const Profile = ({ handleModal }: ProfileProps) => {
           <Button
             type="button"
             onClick={() => {
-              handleModal(<EditProfileForm />);
+              handleModal(<EditProfileForm handleModal={handleModal} />);
             }}
           >
             Editar

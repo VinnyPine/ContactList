@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { ReactNode, useContext } from "react";
 import { ContactContext } from "../../providers";
 import { useForm } from "react-hook-form";
 import { AddContactData } from "../../types";
@@ -9,17 +9,29 @@ import { Button } from "../Button";
 import { StyledEditProfileForm } from "./style";
 
 export const AddContactForm = () => {
-  const { isLoadingContact, createContact } = useContext(ContactContext);
+  const { isLoadingContact, createContact, infoMessage } =
+    useContext(ContactContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<AddContactData>({
     resolver: zodResolver(AddContactSchema),
   });
 
+  const handleCreateContact = async (data: AddContactData) => {
+    await createContact(data);
+    reset({
+      firstName: "",
+      lastName: "",
+      email: "",
+      phone: "",
+    });
+  };
+
   return (
-    <StyledEditProfileForm onSubmit={handleSubmit(createContact)}>
+    <StyledEditProfileForm onSubmit={handleSubmit(handleCreateContact)}>
       <Input
         type="text"
         name="firstName"
@@ -51,6 +63,7 @@ export const AddContactForm = () => {
 
       <Button type="submit">Adicionar</Button>
       {isLoadingContact && <span>Carregando...</span>}
+      {infoMessage && <span>{infoMessage}</span>}
     </StyledEditProfileForm>
   );
 };

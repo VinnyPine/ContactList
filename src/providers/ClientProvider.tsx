@@ -73,9 +73,13 @@ export const ClientProvider = ({ children }: ClientProps) => {
       localStorage.setItem("@contacts-list:token", token);
 
       navigate("/dashboard");
-    } catch (error: unknown) {
+    } catch (error: any) {
       console.error(error);
-      setInfoMessage("Ocorreu um erro no servidor, tente novamente.");
+      if (error?.response?.status === 401) {
+        setInfoMessage("Email e/ou senha inválidos");
+      } else {
+        setInfoMessage("Ocorreu um erro no servidor, tente novamente.");
+      }
     } finally {
       setIsLoadingClient(false);
     }
@@ -107,6 +111,30 @@ export const ClientProvider = ({ children }: ClientProps) => {
     }
   };
 
+  const removeClient = async (userId: string) => {
+    const token = localStorage.getItem("@contacts-list:token");
+
+    if (!token) {
+      navigate("/");
+      return;
+    }
+
+    try {
+      setIsLoadingClient(true);
+      await api.delete(`/clients/${userId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsLoadingClient(false);
+    }
+  };
+
   return (
     <ClientContext.Provider
       value={{
@@ -118,6 +146,7 @@ export const ClientProvider = ({ children }: ClientProps) => {
         loginClient,
         verifyToken,
         editClient,
+        removeClient,
       }}
     >
       {children}

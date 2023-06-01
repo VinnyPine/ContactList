@@ -58,7 +58,10 @@ export const Login = () => {
 
       {infoMessage && (
         <div
-          className={`info-message ${infoMessage.includes("erro") && "error"}`}
+          className={`info-message ${
+            infoMessage.includes("erro") ||
+            (infoMessage.includes("inválidos") && "error")
+          }`}
         >
           {infoMessage}
         </div>
