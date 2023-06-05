@@ -23,7 +23,7 @@ export const Register = () => {
 
   return (
     <StyledRegister>
-      <Header text="Register" />
+      <Header />
 
       <form onSubmit={handleSubmit(registerClient)}>
         <Input

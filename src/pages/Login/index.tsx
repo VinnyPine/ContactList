@@ -31,7 +31,7 @@ export const Login = () => {
 
   return (
     <StyledLogin>
-      <Header text="Login" />
+      <Header />
 
       <form onSubmit={handleSubmit(loginClient)}>
         <Input
