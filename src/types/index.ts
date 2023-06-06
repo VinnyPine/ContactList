@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { RegisterSchema } from "../pages/Register/validator";
-import { LoginSchema } from "../pages/Login/validator";
+import { LoginSchema } from "../pages/Home/validator";
 import { z } from "zod";
 import { EditProfileSchema } from "../components/EditProfileForm/validator";
 import { AddContactSchema } from "../components/AddContactForm/validator";

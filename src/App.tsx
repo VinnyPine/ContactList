@@ -1,7 +1,7 @@
 import { ClientProvider, ContactProvider } from "./providers";
 import { Routes, Route } from "react-router-dom";
 import { Register } from "./pages/Register";
-import { Login } from "./pages/Login";
+import { Home } from "./pages/Home";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
 import { Dashboard } from "./pages/Dashboard";
 
@@ -11,7 +11,7 @@ const App = () => {
       <ClientProvider>
         <ContactProvider>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
             <Route element={<ProtectedRoutes />}>
               <Route path="/dashboard" element={<Dashboard />} />

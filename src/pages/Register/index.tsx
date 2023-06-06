@@ -71,11 +71,13 @@ export const Register = () => {
 
         <InputRadio register={register} />
 
-        <Button type="submit">Register</Button>
+        <Button type="submit" variant="primary">
+          Cadastrar
+        </Button>
         {isLoadingClient && <span>Carregando...</span>}
       </form>
 
-      <Link to={"/"}>Login</Link>
+      <Link to={"/"}>Volte para fazer login</Link>
     </StyledRegister>
   );
 };
