@@ -19,5 +19,6 @@ export const StyledRegister = styled.div`
     justify-content: center;
     align-items: center;
     gap: 10px;
+    box-shadow: 2px 2px 8px 0px var(--color-black);
   }
 `;

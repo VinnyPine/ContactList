@@ -19,7 +19,7 @@ export const Dashboard = () => {
 
   return (
     <StyledDashboard>
-      <Header text="Dashboard" hasUser={hasUser} />
+      <Header hasUser={hasUser} />
       <Profile handleModal={handleModal} />
       <Contacts handleModal={handleModal} />
       <Modal form={formModal} handleModal={handleModal} />

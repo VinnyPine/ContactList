@@ -4,11 +4,10 @@ import { Container } from "../Container";
 import { Button } from "../Button";
 
 interface HeaderProps {
-  text?: string;
   hasUser?: boolean;
 }
 
-export const Header = ({ text, hasUser }: HeaderProps) => {
+export const Header = ({ hasUser }: HeaderProps) => {
   const navigate = useNavigate();
 
   const logout = () => {
@@ -19,7 +18,7 @@ export const Header = ({ text, hasUser }: HeaderProps) => {
   return (
     <StyledHeader>
       <Container>
-        {text && <h2 className="title-header">{text}</h2>}
+        {<h2 className="title-header">Contact List</h2>}
         {hasUser && <Button onClick={logout}>logout</Button>}
       </Container>
     </StyledHeader>

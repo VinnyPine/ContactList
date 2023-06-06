@@ -12,5 +12,6 @@ export const StyledHeader = styled.header`
     justify-content: space-between;
     align-items: center;
     width: 100%;
+    padding: 0 20px;
   }
 `;
